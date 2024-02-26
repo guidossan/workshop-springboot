@@ -1,10 +1,10 @@
-package com.guilherme.curso;
+package com.guilherme.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CursoApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {

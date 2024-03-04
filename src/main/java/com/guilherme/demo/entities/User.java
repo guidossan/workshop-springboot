@@ -1,16 +1,16 @@
-package main.java.Entities;
+package com.guilherme.demo.entities;
 
 import java.io.Serializable;
 
-public class Users implements Serializable{
+public class User implements Serializable{
     private long id;
-    private String name;
+    private String name;  
     private String email;
     private String phone;
-    public Users(){
+    public User(){
 
     }
-    public Users(long id, String name, String email, String phone) {
+    public User(long id, String name, String email, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -55,10 +55,11 @@ public class Users implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Users other = (Users) obj;
+        User other = (User) obj;
         if (id != other.id)
             return false;
         return true;
-    }
+    }  
+    
     
 }

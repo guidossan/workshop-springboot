@@ -1,11 +1,14 @@
 package com.guilherme.demo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +18,8 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
     private String name;  
     private String email;
     private String phone;
@@ -27,6 +32,7 @@ public class User implements Serializable{
         this.email = email;
         this.phone = phone;
     }
+    
     public long getId() {
         return id;
     }
@@ -70,6 +76,9 @@ public class User implements Serializable{
         if (id != other.id)
             return false;
         return true;
+    }
+    public List<Order> getOrders() {
+        return orders;
     }  
     
     

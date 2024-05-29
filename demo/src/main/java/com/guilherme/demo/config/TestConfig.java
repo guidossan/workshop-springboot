@@ -32,7 +32,7 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private ProductRepositorie productRepositorie;
 
-    @SuppressWarnings("null")
+   
     @Override
     public void run(String... args) throws Exception {
         Category cat1 = new Category(null, "Electronics");
@@ -44,7 +44,15 @@ public class TestConfig implements CommandLineRunner{
         Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
         Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
         Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, ""); 
-                
+        categoryRepositorie.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepositorie.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+        
+        p1.getCategories().add(cat1);
+        p2.getCategories().add(cat2);
+        p2.getCategories().add(cat2);
+        p3.getCategories().add(cat3);
+        p4.getCategories().add(cat3);
+        p5.getCategories().add(cat2);
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777"); 
         User u3 = new User(null, "guilherme", "gui@gmail.com", "14999992031");
@@ -55,7 +63,6 @@ public class TestConfig implements CommandLineRunner{
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), u1, OrderStatus.SHIPERED); 
         
 
-        categoryRepositorie.saveAll(Arrays.asList(cat1, cat2, cat3));
         productRepositorie.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
         userRepositorie.saveAll(Arrays.asList(u1, u2, u3));
         orderRepositorie.saveAll(Arrays.asList(o1, o2, o3));

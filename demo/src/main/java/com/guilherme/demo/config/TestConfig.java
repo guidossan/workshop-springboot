@@ -16,6 +16,7 @@ import com.guilherme.demo.Repositorie.UserRepositorie;
 import com.guilherme.demo.entities.Category;
 import com.guilherme.demo.entities.Order;
 import com.guilherme.demo.entities.OrderItem;
+import com.guilherme.demo.entities.Payment;
 import com.guilherme.demo.entities.Product;
 import com.guilherme.demo.entities.User;
 import com.guilherme.demo.entities.enums.OrderStatus;
@@ -76,7 +77,12 @@ public class TestConfig implements CommandLineRunner{
         OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
         OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
-        orderItemRepositorie.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));     
+        orderItemRepositorie.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));  
+        
+        Payment pay1 = new Payment(null, Instant.parse("2024-05-31T21:53:07Z"), o1);
+        o1.setPayment(pay1);
+        orderRepositorie.save(o1); 
+         
     }
 
 

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.guilherme.demo.entities.enums.OrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb-order")
+@Table(name = "tb_order")
 public class Order implements Serializable {
 
     @Id
@@ -40,6 +42,15 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+    @JsonIgnore
+    public Payment getPayment() {
+        return payment;
+    }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
     public Order(){
         
     }
@@ -80,6 +91,13 @@ public class Order implements Serializable {
 
     public Set<OrderItem> getItens(){
         return items;
+    }
+    public Double getTotal(){
+        double soma = 0;
+        for(OrderItem x: items){
+            soma += x.getSubTotal();
+        }
+        return soma;
     }
     @Override
     public int hashCode() {

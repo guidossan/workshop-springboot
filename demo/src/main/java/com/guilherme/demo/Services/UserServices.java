@@ -30,4 +30,20 @@ public class UserServices {
     public void delete(Long id){
         repository.deleteById(id);
     }
+    public User update(Long id, User obj){
+        /*
+        aqui ele prepara o obj a ser mechido para dai mecher no BD,
+        ao contrário de usar findbyid que traz o obj
+        */
+        User entity = repository.getReferenceById(id);
+        update(entity,obj);
+        return repository.save(obj);
+    }
+
+    private void update(User entity, User obj) {
+        entity.setName(obj.getName());
+        entity.setPhone(obj.getPhone());
+        entity.setEmail(obj.getEmail());
+        
+    }
 }

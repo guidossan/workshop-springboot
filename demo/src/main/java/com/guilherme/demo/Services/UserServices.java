@@ -13,6 +13,8 @@ import com.guilherme.demo.Services.Exceptions.DatabaseException;
 import com.guilherme.demo.Services.Exceptions.ResourceNotFoundException;
 import com.guilherme.demo.entities.User;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserServices {
     
@@ -40,19 +42,26 @@ public class UserServices {
         try{
             repository.deleteById(id);
         }catch(EmptyResultDataAccessException e){
+            //user don't exists 
             throw new ResourceNotFoundException(id);
         }catch(DataIntegrityViolationException e){
+            //user have oder
             throw new DatabaseException(e.getMessage());
         }
     }
     public User update(Long id, User obj){
-        /*
-        aqui ele prepara o obj a ser mechido para dai mecher no BD,
-        ao contrário de usar findbyid que traz o obj
-        */
-        User entity = repository.getReferenceById(id);
-        update(entity,obj);
-        return repository.save(obj);
+        try{
+            /*
+            aqui ele prepara o obj a ser mechido para dai mecher no BD,
+            ao contrário de usar findbyid que traz o obj
+            */
+            User entity = repository.getReferenceById(id);
+            update(entity,obj);
+            return repository.save(obj);
+
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void update(User entity, User obj) {

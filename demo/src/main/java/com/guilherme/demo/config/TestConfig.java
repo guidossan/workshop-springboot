@@ -21,7 +21,7 @@ import com.guilherme.demo.entities.Product;
 import com.guilherme.demo.entities.User;
 import com.guilherme.demo.entities.enums.OrderStatus;
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class TestConfig implements CommandLineRunner{
     @Autowired
     private UserRepositorie userRepositorie;
